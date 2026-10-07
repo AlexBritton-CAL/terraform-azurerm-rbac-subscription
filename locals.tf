@@ -19,17 +19,45 @@ locals {
   all_custom_role_definitions = merge(local.default_custom_role_definitions, var.custom_role_definitions)
 
   default_privilege_levels = {
-    "0"  = []
-    "1"  = ["Reader"]
-    "2"  = []
-    "3"  = []
-    "4"  = []
-    "5"  = ["Reader", "Azure Kubernetes Service RBAC Reader", "AKS Port Forward"]
-    "6"  = []
-    "7"  = []
-    "8"  = []
-    "9"  = []
-    "10" = ["Contributor", "Key Vault Secrets Officer"]
+    "0" = []
+    "1" = ["Reader"]
+    "2" = []
+    "3" = []
+    "4" = []
+    "5" = [
+      "AcrPull",
+      "AKS Port Forward",
+      "App Configuration Data Owner",
+      "App Configuration Reader",
+      "Azure Event Hubs Data Receiver",
+      "Azure Kubernetes Service Cluster User Role",
+      "Azure Kubernetes Service RBAC Reader",
+      "Azure Kubernetes Service RBAC Writer",
+      "Azure Service Bus Data Receiver",
+      "Azure Service Bus Data Sender",
+      "Cosmos DB Account Reader Role",
+      "Cosmos DB Operator",
+      "Key Vault Certificate User",
+      "Key Vault Purge Operator",
+      "Key Vault Secrets Officer",
+      "Reader",
+      "Redis Cache Contributor",
+      "SQL DB Contributor",
+      "Storage Account Contributor",
+      "Storage Blob Data Contributor",
+    ]
+    "6" = []
+    "7" = []
+    "8" = []
+    "9" = []
+    "10" = [
+      "App Configuration Contributor",
+      "Azure Kubernetes Service Cluster Admin Role",
+      "Azure Service Bus Data Owner",
+      "Contributor",
+      "DocumentDB Account Contributor",
+      "Key Vault Secrets Officer"
+    ]
     "11" = []
     "12" = []
     "13" = []
