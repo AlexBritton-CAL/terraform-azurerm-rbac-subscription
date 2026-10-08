@@ -70,7 +70,7 @@ Azure custom role names must be unique within a tenant. Since this module is dep
 | 0 | No access | *(empty)* |
 | 1 | Low — control plane read | Reader |
 | 5 | Mid — control + data plane read | AcrPull, AKS Port Forward (custom), App Configuration Data Owner, App Configuration Reader, Azure Event Hubs Data Receiver, Azure Kubernetes Service Cluster User Role, Azure Kubernetes Service RBAC Reader, Azure Kubernetes Service RBAC Writer, Azure Service Bus Data Receiver, Azure Service Bus Data Sender, Cosmos DB Account Reader Role, Cosmos DB Operator, Key Vault Certificate User, Key Vault Purge Operator, Key Vault Secrets Officer, Reader, Redis Cache Contributor, SQL DB Contributor, Storage Account Contributor, Storage Blob Data Contributor |
-| 10 | High — break glass | App Configuration Contributor, Azure Kubernetes Service Cluster Admin Role, Azure Service Bus Data Owner, Contributor, DocumentDB Account Contributor, Key Vault Secrets Officer |
+| 10 | High — break glass | App Configuration Contributor, Azure Kubernetes Service Cluster Admin Role, Azure Service Bus Data Owner, DocumentDB Account Contributor, Key Vault Secrets Officer |
 | 2–4, 6–9, 11–15 | Reserved for future use | *(empty)* |
 
 ## Current default custom roles

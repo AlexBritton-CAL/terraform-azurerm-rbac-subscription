@@ -59,7 +59,6 @@ locals {
       "App Configuration Contributor",
       "Azure Kubernetes Service Cluster Admin Role",
       "Azure Service Bus Data Owner",
-      "Contributor",
       "DocumentDB Account Contributor",
       "Key Vault Secrets Officer"
     ]

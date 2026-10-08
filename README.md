@@ -13,7 +13,7 @@ Each privilege level maps to a default set of Azure built-in roles. Callers assi
 | 2-4 | *(reserved)* | *(none)* |
 | 5 | Mid | `AcrPull`, `AKS Port Forward`*, `App Configuration Data Owner`, `App Configuration Reader`, `Azure Event Hubs Data Receiver`, `Azure Kubernetes Service Cluster User Role`, `Azure Kubernetes Service RBAC Reader`, `Azure Kubernetes Service RBAC Writer`, `Azure Service Bus Data Receiver`, `Azure Service Bus Data Sender`, `Cosmos DB Account Reader Role`, `Cosmos DB Operator`, `Key Vault Certificate User`, `Key Vault Purge Operator`, `Key Vault Secrets Officer`, `Reader`, `Redis Cache Contributor`, `SQL DB Contributor`, `Storage Account Contributor`, `Storage Blob Data Contributor` |
 | 6-9 | *(reserved)* | *(none)* |
-| 10 | High | `App Configuration Contributor`, `Azure Kubernetes Service Cluster Admin Role`, `Azure Service Bus Data Owner`, `Contributor`, `DocumentDB Account Contributor`, `Key Vault Secrets Officer` |
+| 10 | High | `App Configuration Contributor`, `Azure Kubernetes Service Cluster Admin Role`, `Azure Service Bus Data Owner`, `DocumentDB Account Contributor`, `Key Vault Secrets Officer` |
 | 11-15 | *(reserved)* | *(none)* |
 
 Levels 2-4, 6-9, and 11-15 are empty by default and available for future use via `role_overrides` or `additional_roles`.
