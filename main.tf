@@ -1,3 +1,7 @@
+data "azurerm_subscription" "current" {
+  subscription_id = var.subscription_id
+}
+
 data "azuread_group" "lookup" {
   for_each = local.all_display_names
 
@@ -8,7 +12,7 @@ data "azuread_group" "lookup" {
 resource "azurerm_role_definition" "custom" {
   for_each = local.all_custom_role_definitions
 
-  name  = each.key
+  name  = "${each.key} ${data.azurerm_subscription.current.display_name}"
   scope = local.subscription_scope
 
   permissions {

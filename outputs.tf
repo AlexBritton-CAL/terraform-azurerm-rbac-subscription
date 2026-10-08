@@ -11,10 +11,13 @@ output "role_assignments" {
 }
 
 output "custom_role_definition_ids" {
-  description = "Map of custom role name to role definition resource ID."
+  description = "Map of custom role name to role definition resource ID and Azure role name."
   value = {
     for k, v in azurerm_role_definition.custom :
-    k => v.role_definition_resource_id
+    k => {
+      role_definition_resource_id = v.role_definition_resource_id
+      azure_role_name             = "${k} ${data.azurerm_subscription.current.display_name}"
+    }
   }
 }
 

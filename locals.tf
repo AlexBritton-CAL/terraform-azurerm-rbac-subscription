@@ -4,14 +4,15 @@ locals {
   default_custom_role_definitions = {
     "AKS Port Forward" = {
       description = "Allow port forwarding to pods without exec or delete access."
-      actions     = []
+      actions = ["Microsoft.ContainerService/managedClusters/listClusterUserCredential/action",
+      "Microsoft.ContainerService/managedClusters/read"]
       not_actions = []
       data_actions = [
         "Microsoft.ContainerService/managedClusters/pods/*",
       ]
       not_data_actions = [
         "Microsoft.ContainerService/managedClusters/pods/exec/action",
-        "Microsoft.ContainerService/managedClusters/pods/delete",
+        "Microsoft.ContainerService/managedClusters/pods/delete"
       ]
     }
   }
