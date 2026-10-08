@@ -49,6 +49,10 @@ All resources use `for_each` with descriptive keys. This means adding/removing a
 
 `azurerm_role_assignment` uses `role_definition_name` for built-in Azure roles and `role_definition_id` for custom roles. The `is_custom` flag in `local.role_assignments` checks if the role name exists in `local.all_custom_role_definitions` to pick the right attribute. The other attribute is set to `null`.
 
+### Custom role names are suffixed with the subscription display name
+
+Azure custom role names must be unique within a tenant. Since this module is deployed per-subscription, a `data.azurerm_subscription.current` lookup appends the subscription display name to each custom role's Azure name (e.g. "AKS Port Forward NP-DI"). Internal keys (locals, privilege levels, `for_each`) use the short name — only the `name` attribute on `azurerm_role_definition.custom` gets the suffix.
+
 ## File layout
 
 | File | Responsibility |
@@ -65,15 +69,15 @@ All resources use `for_each` with descriptive keys. This means adding/removing a
 |-------|---------|-------|
 | 0 | No access | *(empty)* |
 | 1 | Low — control plane read | Reader |
-| 5 | Mid — control + data plane read | Reader, Azure Kubernetes Service RBAC Reader, AKS Port Forward (custom) |
-| 10 | High — break glass | Contributor, Key Vault Secrets Officer |
+| 5 | Mid — control + data plane read | AcrPull, AKS Port Forward (custom), App Configuration Data Owner, App Configuration Reader, Azure Event Hubs Data Receiver, Azure Kubernetes Service Cluster User Role, Azure Kubernetes Service RBAC Reader, Azure Kubernetes Service RBAC Writer, Azure Service Bus Data Receiver, Azure Service Bus Data Sender, Cosmos DB Account Reader Role, Cosmos DB Operator, Key Vault Certificate User, Key Vault Purge Operator, Key Vault Secrets Officer, Reader, Redis Cache Contributor, SQL DB Contributor, Storage Account Contributor, Storage Blob Data Contributor |
+| 10 | High — break glass | App Configuration Contributor, Azure Kubernetes Service Cluster Admin Role, Azure Service Bus Data Owner, Contributor, DocumentDB Account Contributor, Key Vault Secrets Officer |
 | 2–4, 6–9, 11–15 | Reserved for future use | *(empty)* |
 
 ## Current default custom roles
 
-| Name | Data Actions | Denied Data Actions | Rationale |
-|------|-------------|-------------------|-----------|
-| AKS Port Forward | `managedClusters/pods/*` | `pods/exec/action`, `pods/delete` | Allows port-forwarding and log access to pods without granting exec or delete — needed at level 5 for debugging without full cluster write access |
+| Name | Actions | Data Actions | Denied Data Actions | Rationale |
+|------|---------|-------------|-------------------|-----------|
+| AKS Port Forward | `managedClusters/listClusterUserCredential/action`, `managedClusters/read` | `managedClusters/pods/*`, `managedClusters/services/*` | `pods/exec/action`, `pods/delete`, `services/write`, `services/delete` | Allows port-forwarding, log access, and service listing on pods without granting exec, delete, or service mutation — needed at level 5 for debugging without full cluster write access |
 
 ## How to add a new default privilege level
 

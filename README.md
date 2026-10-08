@@ -11,14 +11,14 @@ Each privilege level maps to a default set of Azure built-in roles. Callers assi
 | 0 | None | *(none)* |
 | 1 | Low | `Reader` |
 | 2-4 | *(reserved)* | *(none)* |
-| 5 | Mid | `Reader`, `Azure Kubernetes Service RBAC Reader`, `AKS Port Forward`* |
+| 5 | Mid | `AcrPull`, `AKS Port Forward`*, `App Configuration Data Owner`, `App Configuration Reader`, `Azure Event Hubs Data Receiver`, `Azure Kubernetes Service Cluster User Role`, `Azure Kubernetes Service RBAC Reader`, `Azure Kubernetes Service RBAC Writer`, `Azure Service Bus Data Receiver`, `Azure Service Bus Data Sender`, `Cosmos DB Account Reader Role`, `Cosmos DB Operator`, `Key Vault Certificate User`, `Key Vault Purge Operator`, `Key Vault Secrets Officer`, `Reader`, `Redis Cache Contributor`, `SQL DB Contributor`, `Storage Account Contributor`, `Storage Blob Data Contributor` |
 | 6-9 | *(reserved)* | *(none)* |
-| 10 | High | `Contributor`, `Key Vault Secrets Officer` |
+| 10 | High | `App Configuration Contributor`, `Azure Kubernetes Service Cluster Admin Role`, `Azure Service Bus Data Owner`, `Contributor`, `DocumentDB Account Contributor`, `Key Vault Secrets Officer` |
 | 11-15 | *(reserved)* | *(none)* |
 
 Levels 2-4, 6-9, and 11-15 are empty by default and available for future use via `role_overrides` or `additional_roles`.
 
-*\* Custom role created by the module — allows pod operations (port-forward, logs, etc.) but blocks exec and delete.*
+*\* Custom role created by the module. The subscription display name is automatically appended to avoid tenant-wide name collisions (e.g. "AKS Port Forward NP-DI").*
 
 > **Note:** Owner role assignments are explicitly blocked by this module. Owner access should be managed at the management group level.
 
@@ -28,7 +28,7 @@ The module includes built-in custom role definitions that are created automatica
 
 | Role | Included in Level | Description |
 |------|-------------------|-------------|
-| `AKS Port Forward` | 5 (Mid) | Grants `Microsoft.ContainerService/managedClusters/pods/*` but denies `pods/exec/action` and `pods/delete` |
+| `AKS Port Forward` | 5 (Mid) | Grants cluster read + credential access, `pods/*` and `services/*` data actions, but denies `pods/exec`, `pods/delete`, `services/write`, and `services/delete` |
 
 ## Usage
 
